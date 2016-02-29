@@ -25,6 +25,7 @@ public class Menu {
 	    System.out.println("	1. Show Tasks");
 	    System.out.println("	2. New Task");
 	    System.out.println("	3. Delete Task");
+	    System.out.println("	4. Sort Tasks");
 	    System.out.println("	99. Exit");
 	    System.out.println("============================");
 
@@ -48,6 +49,12 @@ public class Menu {
 	    case 3:
 	    	System.out.println("Deleting Task...");
 	    	deleteTask();
+	    	t.showTasks();
+		    showMainMenu();
+	    	break;
+	    case 4:
+	    	System.out.println("Sort Tasks...");
+	    	sortTasks();
 	    	t.showTasks();
 		    showMainMenu();
 	    	break;
@@ -112,6 +119,57 @@ public class Menu {
 		 
 		 t.remove(del);
 	}
+	
+	public void sortTasks(){
+		// Sort Task
+		int sort = 0;
+		String descr = "";
+		String dir = "";
+		
+	    System.out.println("What should be sorted: ");
+	    System.out.println("  1. Date");
+	    System.out.println("  2. Description");
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	   
+		 try {
+	     	sort = Integer.parseInt(in.readLine());
+		 } catch (IOException e) {
+			 System.out.println("IO Error, switching to Main Menu.");
+	         showMainMenu();
+		 }
+		 
+		 if (sort == 1){
+			 descr = "description";
+		 }
+		 else{
+			 descr = "duedate";
+		 }
+		 
+		 System.out.println("Sort Direction: ");
+		 System.out.println("  1. ASC");
+		 System.out.println("  2. DESC");
+		 
+		 in = new BufferedReader(new InputStreamReader(System.in));
+		   
+		 try {
+	     	sort = Integer.parseInt(in.readLine());
+		 } catch (IOException e) {
+			 System.out.println("IO Error, switching to Main Menu.");
+	         showMainMenu();
+		 }
+		 
+		 if (sort == 1){
+			 dir = "ASC";
+		 }
+		 else{
+			 dir = "DESC";
+		 }
+		 
+		 t.sortTasks(descr, dir);
+
+	}
+	
 	
 	private class KeyInput {
 		public void printPrompt(String prompt) {

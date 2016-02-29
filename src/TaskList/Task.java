@@ -1,7 +1,7 @@
 package TaskList;
 import java.sql.Timestamp;
 
-public class Task {
+public class Task implements Comparable<Task>{
 
 	private enum Status{ OPEN,DONE }
 	private Status status = Status.OPEN;
@@ -27,6 +27,11 @@ public class Task {
 	
 	public void setTimestamp(Timestamp t){
 		this.duedate = t;
+	}
+
+	@Override
+	public int compareTo(Task task) {
+		return	this.description.compareTo(task.description);
 	}
 	
 }
