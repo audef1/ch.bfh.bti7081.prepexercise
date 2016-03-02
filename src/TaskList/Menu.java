@@ -84,6 +84,9 @@ public class Menu {
 	public void newTask(){
 		String description = "";
 		Timestamp duedate = null;
+		Boolean rep = false;
+		int i = 0;
+		ExtendedTask.Period period = ExtendedTask.Period.WEEKLY;
 		
 		// New Task 
 	    System.out.println("Please enter a description: ");
@@ -111,8 +114,62 @@ public class Menu {
 			 System.out.println("Date Error, switching to Main Menu.");
 	         showMainMenu();
 		}
+		 
+		System.out.println("Is your Task repetitive?: ");
+		System.out.println("  0: no");
+		System.out.println("  1: yes");
+		try {
+			i = Integer.parseInt(in.readLine());
+		} catch (IOException e) {
+			System.out.println("IO Error, switching to Main Menu.");
+			showMainMenu();
+		}
+			
+		switch (i) {
+			case 0:
+				rep = false;
+		    	break;
+		    case 1:
+		    	rep = true;
+				break;
+		}
 		
-		t.add(new Task(description, duedate));
+		if (rep){
+			System.out.println("Chose periodicity: ");
+			System.out.println("  0: DAILY");
+			System.out.println("  1: WEEKLY");
+			System.out.println("  2: MONTHLY");
+			System.out.println("  3: YEARLY");
+			try {
+				i = Integer.parseInt(in.readLine());
+			} catch (IOException e) {
+				System.out.println("IO Error, switching to Main Menu.");
+				showMainMenu();
+			}
+				
+			switch (i) {
+				case 0:
+					period = ExtendedTask.Period.DAILY;
+			    	break;
+			    case 1:
+			    	period = ExtendedTask.Period.WEEKLY;
+					break;
+			    case 2:
+			    	period = ExtendedTask.Period.MONTHLY;
+					break;
+			    case 3:
+			    	period = ExtendedTask.Period.YEARLY;
+					break;
+			}
+			
+		}
+		
+
+		if (rep)
+			t.add(new ExtendedTask(description, duedate, period));
+		else
+			t.add(new Task(description, duedate));
+		
 	}
 	
 	public void deleteTask(){
