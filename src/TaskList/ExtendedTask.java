@@ -3,16 +3,17 @@ import java.sql.Timestamp;
 
 public class ExtendedTask extends Task{
 
-	private enum Repeat{DAILY,WEEKLY,MONTHLY,YEARL}
-	private Repeat repeat;
+	public enum Period{DAILY,WEEKLY,MONTHLY,YEARLY}
+	private Period period = Period.WEEKLY;
 	
 	public ExtendedTask(String description, Timestamp duedate) {
 		super(description, duedate);
 	}
 	
-	public ExtendedTask(String description, Timestamp duedate, Repeat repeat){
+	public ExtendedTask(String description, Timestamp duedate, Period period){
 		super(description, duedate);
-		this.repeat = repeat;
+		this.period = period;
 	}
-
+	
+	
 }

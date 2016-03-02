@@ -3,14 +3,14 @@ import java.sql.Timestamp;
 
 public class Task implements Comparable<Task>{
 
-	private enum Status{ OPEN,DONE }
+	public enum Status{ OPEN,DONE }
 	private Status status = Status.OPEN;
-	public String description;
-	public Timestamp duedate;
+	private String description;
+	private Timestamp duedate;
 	
 	public Task(String description, Timestamp duedate){
-		this.description = description;
-		this.duedate = duedate;
+		this.setDescription(description);
+		this.setDuedate(duedate);
 	}
 	
 	public Status getStatus(){
@@ -18,20 +18,39 @@ public class Task implements Comparable<Task>{
 	}
 	
 	public void done(){
-		this.status = Status.DONE;
+		if (this.status == Status.OPEN)
+			this.status = Status.DONE;
+		else
+			this.status = Status.OPEN;
 	}
 	
 	public String toString(){
-		return description + " " + duedate;
+		return getDuedate() + " | " + status + " | Note: " + getDescription();
 	}
 	
 	public void setTimestamp(Timestamp t){
-		this.duedate = t;
+		this.setDuedate(t);
 	}
 
 	@Override
 	public int compareTo(Task task) {
-		return	this.description.compareTo(task.description);
+		return	this.getDescription().compareTo(task.getDescription());
+	}
+
+	public Timestamp getDuedate() {
+		return duedate;
+	}
+
+	public void setDuedate(Timestamp duedate) {
+		this.duedate = duedate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 }

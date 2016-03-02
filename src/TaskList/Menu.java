@@ -24,8 +24,10 @@ public class Menu {
 	    System.out.println("Options:");
 	    System.out.println("	1. Show Tasks");
 	    System.out.println("	2. New Task");
-	    System.out.println("	3. Delete Task");
-	    System.out.println("	4. Sort Tasks");
+	    System.out.println("	3. Close Task");
+	    System.out.println("	4. Delete Task");
+	    System.out.println("	5. Sort Tasks");
+	    System.out.println("	6. Search Task");
 	    System.out.println("	99. Exit");
 	    System.out.println("============================");
 
@@ -37,7 +39,7 @@ public class Menu {
 	    switch (selection) {
 	    case 1:
 	      System.out.println("Show Tasks...");
-	      t.showTasks();
+	      showTasks();
 	      showMainMenu();
 	      break;
 	    case 2:
@@ -47,15 +49,26 @@ public class Menu {
 		    showMainMenu();
 	    	break;
 	    case 3:
+	    	System.out.println("Closing Task...");
+		    closeTask();
+		    t.showTasks();
+		    showMainMenu();
+	    	break;
+	    case 4:
 	    	System.out.println("Deleting Task...");
 	    	deleteTask();
 	    	t.showTasks();
 		    showMainMenu();
 	    	break;
-	    case 4:
+	    case 5:
 	    	System.out.println("Sort Tasks...");
 	    	sortTasks();
 	    	t.showTasks();
+		    showMainMenu();
+	    	break;
+	    case 6:
+	    	System.out.println("Search Tasks...");
+	    	searchTask();
 		    showMainMenu();
 	    	break;
 	    case 99:
@@ -118,6 +131,76 @@ public class Menu {
 		 }
 		 
 		 t.remove(del);
+	}
+	
+	public void closeTask(){
+		// Close Task
+		t.showTasks();
+		int close = 0;
+		
+	    System.out.println("Which Task should be closed: ");
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	   
+		 try {
+	     	close = Integer.parseInt(in.readLine());
+		 } catch (IOException e) {
+			 System.out.println("IO Error, switching to Main Menu.");
+	         showMainMenu();
+		 }
+		 
+		 t.get(close).done();
+	}
+	
+	public void showTasks(){
+		// show Task
+		int show = 0;
+
+		System.out.println("Show tasks: ");
+		System.out.println("  1. All");
+		System.out.println("  2. OPEN");
+		System.out.println("  3. DONE");
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+			   
+		try {
+			show = Integer.parseInt(in.readLine());
+		} catch (IOException e) {
+			System.out.println("IO Error, switching to Main Menu.");
+			showMainMenu();
+		}
+		
+		switch (show) {
+	    case 1:
+	    	System.out.println("Show all Tasks...");
+	    	t.showTasks();
+	    	showMainMenu();
+	    	break;
+	    case 2:
+	    	System.out.println("Show all OPEN Tasks...");
+		    t.showOpenTasks();
+			showMainMenu();
+			break;
+	    case 3:
+	    	System.out.println("Show all CLOSED Tasks...");
+	    	t.showClosedTasks();
+			showMainMenu();
+			break;
+		}
+	}
+	
+	public void searchTask(){
+		// Search Task
+		String s = "";
+	    System.out.println("Search: ");
+	    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	    try {
+			s = in.readLine();
+		} catch (IOException e) {
+			System.out.println("IO Error, switching to Main Menu.");
+	         showMainMenu();
+		}
+	    
+	    t.searchTask(s);
 	}
 	
 	public void sortTasks(){
