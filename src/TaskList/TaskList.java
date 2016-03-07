@@ -68,6 +68,10 @@ public class TaskList {
 		return tasks.get(i);
 	}
 	
+	public ArrayList<Task> getTasks(){
+		return tasks;
+	}
+	
 	public void showTasks(){
 			if (tasks.size() == 0){
 				System.out.println("You dont have any tasks. YAY!");

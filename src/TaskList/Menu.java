@@ -28,6 +28,7 @@ public class Menu {
 	    System.out.println("	4. Delete Task");
 	    System.out.println("	5. Sort Tasks");
 	    System.out.println("	6. Search Task");
+	    System.out.println("	7. Export Tasks to JSON");	    
 	    System.out.println("	99. Exit");
 	    System.out.println("============================");
 
@@ -71,6 +72,11 @@ public class Menu {
 	    	searchTask();
 		    showMainMenu();
 	    	break;
+	    case 7:
+	    	System.out.println("Exporting Tasks...");
+	    	exportTasks();
+		    showMainMenu();
+	    	break;
 	    case 99:
 	      System.out.println("Exiting...");
 	      System.exit(0);
@@ -81,6 +87,17 @@ public class Menu {
 	    
 	}
 	
+	private void exportTasks() {
+		JsonWriter jw = new JsonWriter(t.getTasks());
+		try {
+			jw.write();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("IO Error, switching to Main Menu.");
+	        showMainMenu();
+		}
+	}
+
 	public void newTask(){
 		String description = "";
 		Timestamp duedate = null;
